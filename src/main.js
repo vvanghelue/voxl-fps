@@ -5,12 +5,14 @@ window.THREE = THREE
 import editor from './editor/editor'
 // import game from './game/game'
 
-const renderApp = () => {
+const renderApp = async () => {
   editor.destroy()
 
   document.body.querySelector('.app-container').innerHTML = ''
   if (app.mode == 'editor') {
-    document.body.querySelector('.app-container').appendChild(editor.render())
+    document.body.querySelector('.app-container').appendChild(
+      await editor.create({  })
+    )
   }
 }
 

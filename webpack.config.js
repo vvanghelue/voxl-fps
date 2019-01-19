@@ -45,6 +45,8 @@ module.exports = {
       'three/SAOPass': path.join(__dirname, 'node_modules/three/examples/js/postprocessing/SAOPass.js'),
       'three/stats': path.join(__dirname, 'node_modules/three/examples/libs/stats.min.js'),
 
+      'three/OBJLoader': path.join(__dirname, 'node_modules/three/examples/js/loaders/OBJLoader.js'),
+
     }
   },
   plugins:[

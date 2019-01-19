@@ -10,12 +10,6 @@ import 'three/MaskPass'
 import 'three/SSAOPass'
 import 'three/SimplexNoise'
 
-import 'three/DepthLimitedBlurShader'
-import 'three/SAOShader'
-
-import 'three/UnpackDepthRGBAShader'
-import 'three/SAOPass'
-
 import Stats from './lib/stats'
 
 import SimplexNoise from './lib/SimplexNoise'
@@ -39,6 +33,7 @@ export default {
     let destroyed = false
 
     const scene = new THREE.Scene()
+    // scene.fog = new THREE.Fog(new THREE.Color(0xffffff), 10, 50)
     const sky = new THREE.Sky()
     sky.scale.setScalar(450000)
     scene.add(sky)
@@ -84,7 +79,7 @@ export default {
     camera.position.z = 3
     camera.lookAt(scene.position)
 
-    const renderer = new THREE.WebGLRenderer()
+    const renderer = new THREE.WebGLRenderer({  })
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setPixelRatio(1)
     renderer.setClearColor(0xabcdef)
@@ -112,6 +107,7 @@ export default {
 
     const addCube = ({ position }) => {
       const geometry = new THREE.BoxGeometry(1, 1, 1)
+      // geometry.computeVertexNormals()
       const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 })
       const cube = new THREE.Mesh(geometry, material)
       cube.castShadow = true
@@ -128,12 +124,6 @@ export default {
     // ssaoPass.renderToScreen = true
     // ssaoPass.output = THREE.SSAOPass.OUTPUT.SSAO
     // effectComposer.addPass(ssaoPass)
-
-    //    const renderPass = new THREE.RenderPass( scene, camera )
-    // effectComposer.addPass( renderPass )
-    // const saoPass = new THREE.SAOPass(scene, camera, false, true)
-    // saoPass.renderToScreen = true
-    // effectComposer.addPass(saoPass)
 
     const stats = new Stats()
     document.body.appendChild(stats.dom)

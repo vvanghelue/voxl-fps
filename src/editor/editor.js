@@ -1,18 +1,23 @@
 import engine from '../engine/engine'
 import Level from '../engine/level'
+import ObjLoader from '../engine/lib/obj-loader'
+import GltfLoader from '../engine/lib/gltf-loader'
 
 import * as THREE from 'three'
 import 'three/OrbitControls'
 
 import editorUI from './ui/editor-ui'
 
+
 let currentWorldInstance = null
 
 export default {
-  render() {
+  async create() {
     if (currentWorldInstance) {
       currentWorldInstance.destroy()
     }
+
+    const level = Level({ name: 'New level 01' })
 
     let controls
 
@@ -24,13 +29,14 @@ export default {
       },
     }))
 
+    // world.loadLevel()
+
     controls = new THREE.OrbitControls(world.camera, world.canvasDomElement)
     controls.addEventListener('change', world.render)
     //controls.maxPolarAngle = Math.PI / 2;
     controls.enableZoom = true
     controls.enablePan = true
 
-    const level = Level()
 
     for (const cube of level.getCubes()) {
       world.addCube({
@@ -39,24 +45,28 @@ export default {
       })
     }
 
-    world.camera.position.copy(new THREE.Vector3(0, 3, 10))
+    world.camera.position.copy(new THREE.Vector3(-9, 3, 6))
     world.camera.lookAt(new THREE.Vector3(0, 0, 0))
 
-    var dir = new THREE.Vector3(1, 2, 0)
+    //
+    //
+    //
+    const spawnMesh = (await ObjLoader.load({ path: '/assets/editor/spawn/spawn.obj' })).children[0]
+    window.spawnMesh = spawnMesh
+    spawnMesh.material = new THREE.MeshStandardMaterial({ color: 0x4499ff, roughness: .7 })
+    spawnMesh.castShadow = true
+    spawnMesh.recieveShadow = true
+    spawnMesh.position.copy(new THREE.Vector3(0, 0.22, -10))
+    console.log(spawnMesh)
+    world.scene.add(spawnMesh)
+    //
+    //
+    //
 
-    //normalize the direction vector (convert to vector of length 1)
-    dir.normalize()
-
-    var origin = new THREE.Vector3(0, 0, 0)
-    var length = 1
-    var hex = 0xffff00
-
-    var arrowHelper = new THREE.ArrowHelper(dir, origin, length, hex)
-    world.scene.add(arrowHelper)
 
     const ui = editorUI()
 
-    const element = new DOMParser().parseFromString('<div></div>', 'text/html').body.firstChild
+    const element = new DOMParser().parseFromString('<div class="editor"></div>', 'text/html').body.firstChild
     element.appendChild(world.canvasDomElement)
     element.appendChild(ui.domElement)
     return element

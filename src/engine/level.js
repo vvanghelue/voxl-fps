@@ -9,11 +9,11 @@ const Team = ({ name, spawnPoints }) => {
   }
 }
 
-export default () => {
-  let name = 'Level 001'
+export default ({ name = 'New Level' }) => {
+
   let teams = [
-    Team({ name: 'team 1', spawnPoints: [new THREE.Vector3(20, 0, 0)] }),
-    Team({ name: 'team 2', spawnPoints: [new THREE.Vector3(-20, 0, 0)] }),
+    Team({ name: 'team 1', spawnPoints: [new THREE.Vector3(0, 20, 0)] }),
+    Team({ name: 'team 2', spawnPoints: [new THREE.Vector3(0, -20, 0)] }),
   ]
 
   let cubes = [
