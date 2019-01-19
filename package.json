@@ -1,0 +1,37 @@
+{
+  "name": "fps-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "launch-http-server": "node server.js",
+    "launch-dev-server": "webpack-dev-server",
+    "build": "rm -rf dist/* && webpack --mode production",
+    "dev": "run-p launch-http-server launch-dev-server",
+    "start": "run-s build launch-http-server",
+    "prettier": "prettier --single-quote --no-semi --print-width 120 --write 'src/**/*.js'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "html-webpack-plugin": "^3.2.0",
+    "three": "^0.100.0",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.2.0",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "devDependencies": {
+    "css-loader": "^2.1.0",
+    "prettier": "1.15.3",
+    "style-loader": "^0.23.1"
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "singleQuote": true,
+    "jsxBracketSameLine": true,
+    "trailingComma": "all",
+    "printWidth": 80,
+    "semi": false
+  }
+}
